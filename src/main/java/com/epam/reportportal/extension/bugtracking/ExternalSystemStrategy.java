@@ -56,9 +56,9 @@ public interface ExternalSystemStrategy {
 	/**
 	 * Submit ticket into external system
 	 *
-	 * @param ticketRQ
-	 * @param system
-	 * @return
+	 * @param ticketRQ Ticket Request
+	 * @param system External System
+	 * @return Submitted Ticket
 	 */
 	Ticket submitTicket(PostTicketRQ ticketRQ, ExternalSystem system);
 
