@@ -8,3 +8,10 @@
 * Initial release to Public Maven Repositories
 
 
+
+## 2.6.1
+##### Released: 7 October 2016
+
+* Update dependencies
+
+

@@ -11,6 +11,10 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
+javadoc() {
+    failOnError = false
+}
+
 artifacts {
     archives sourcesJar
     archives javadocJar
