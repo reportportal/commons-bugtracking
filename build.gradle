@@ -39,7 +39,7 @@ dependencies {
 
     compile 'com.epam.reportportal:commons-model:2.6.2'
     compile 'com.epam.reportportal:commons-rules:2.6.0'
-    compile 'com.epam.reportportal:commons-dao:2.6.3'
+    compile 'com.epam.reportportal:commons-dao:2.6.4'
 
     compile 'org.springframework.cloud:spring-cloud-config-client'
     compile 'org.springframework.retry:spring-retry'
