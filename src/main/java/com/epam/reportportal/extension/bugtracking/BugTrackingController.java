@@ -78,7 +78,7 @@ public class BugTrackingController {
 	@ResponseBody
 	public Ticket getTicket(@PathVariable  String systemId, @PathVariable String id) {
 		Optional<Ticket> ticket = externalSystemStrategy.getTicket(id, externalSystemRepository.findOne(systemId));
-		BusinessRule.expect(ticket, Preconditions.IS_PRESENT).verify(ErrorType.TICKET_NOT_FOUND);
+		BusinessRule.expect(ticket, Preconditions.IS_PRESENT).verify(ErrorType.TICKET_NOT_FOUND, id);
 		//noinspection OptionalGetWithoutIsPresent
 		return ticket.get();
 	}
