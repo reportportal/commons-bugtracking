@@ -15,3 +15,9 @@
 * Update dependencies
 
 
+## 2.7.0
+##### Released: 28 November 2016
+
+* Dependencies updates
+
+
