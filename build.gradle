@@ -37,6 +37,10 @@ dependencyManagement {
     }
 }
 
+project.ext {
+    releaseMode = System.getProperty("releaseMode", "false") == "true"
+}
+
 dependencies {
     if (releaseMode) {
         compile 'com.epam.reportportal:commons-model:2.6.2'
