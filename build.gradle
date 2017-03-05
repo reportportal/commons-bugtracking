@@ -53,8 +53,6 @@ dependencies {
     }
 
 
-
-    compile 'org.springframework.cloud:spring-cloud-config-client'
     compile 'org.springframework.retry:spring-retry'
 
     compile 'org.springframework.cloud:spring-cloud-starter-eureka'
