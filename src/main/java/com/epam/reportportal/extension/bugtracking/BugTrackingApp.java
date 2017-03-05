@@ -29,7 +29,7 @@ import com.epam.ta.reportportal.config.MongodbConfiguration;
 import org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
@@ -46,7 +46,7 @@ import java.util.List;
  * @author Andrei Varabyeu
  */
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class })
-@EnableEurekaClient
+@EnableDiscoveryClient
 @Import(MongodbConfiguration.class)
 abstract public class BugTrackingApp extends WebMvcConfigurerAdapter {
 
