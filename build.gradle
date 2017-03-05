@@ -56,6 +56,7 @@ dependencies {
     compile 'org.springframework.retry:spring-retry'
 
     compile 'org.springframework.cloud:spring-cloud-starter-eureka'
+    compile 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
 
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
