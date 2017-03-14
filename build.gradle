@@ -7,7 +7,7 @@ buildscript {
 }
 
 plugins {
-    id "io.spring.dependency-management" version "0.6.0.RELEASE"
+    id "io.spring.dependency-management" version "1.0.0.RELEASE"
     id 'net.researchgate.release' version '2.4.1'
     id "com.jfrog.bintray" version "1.7"
 }
@@ -38,14 +38,14 @@ dependencyManagement {
 }
 
 project.ext {
-    releaseMode = System.getProperty("releaseMode", "false") == "true"
+    releaseMode = project.hasProperty("releaseMode")
 }
 
 dependencies {
     if (releaseMode) {
-        compile 'com.epam.reportportal:commons-model:2.6.2'
-        compile 'com.epam.reportportal:commons-rules:2.6.0'
-        compile 'com.epam.reportportal:commons-dao:2.6.4'
+        compile 'com.epam.reportportal:commons-model:3.0.0-BETA-1'
+        compile 'com.epam.reportportal:commons-rules:3.0.0-BETA-1'
+        compile 'com.epam.reportportal:commons-dao:3.0.0-BETA-1'
     } else {
         compile 'com.github.reportportal:commons-model:11e343e81d'
         compile('com.github.reportportal:commons-dao:54f06ba440')
