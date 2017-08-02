@@ -75,6 +75,14 @@ public class BugTrackingController {
 
 	}
 
+	@RequestMapping(method = RequestMethod.GET, path = "/{systemId}/ticket/types", produces = APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public List<String> getIssueTypes(@PathVariable String systemId) {
+		return externalSystemStrategy.getIssueTypes(externalSystemRepository.findOne(systemId));
+
+	}
+
+
 	@RequestMapping(method = RequestMethod.GET, path = "/{systemId}/ticket/{issueType}/fields", produces = APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public List<PostFormField> getTicketFields(@PathVariable String systemId, @PathVariable String issueType) {
