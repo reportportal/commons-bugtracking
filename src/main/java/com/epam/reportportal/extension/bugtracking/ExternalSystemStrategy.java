@@ -17,11 +17,11 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with Report Portal.  If not, see <http://www.gnu.org/licenses/>.
- */ 
+ */
 
 package com.epam.reportportal.extension.bugtracking;
 
-import com.epam.ta.reportportal.database.entity.ExternalSystem;
+import com.epam.ta.reportportal.ws.model.externalsystem.ExternalSystemResource;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostFormField;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostTicketRQ;
 import com.epam.ta.reportportal.ws.model.externalsystem.Ticket;
@@ -42,7 +42,7 @@ public interface ExternalSystemStrategy {
 	 * @param system - external system details
 	 * @return TRUE of connection is OK
 	 */
-	boolean checkConnection(ExternalSystem system);
+	boolean checkConnection(ExternalSystemResource system);
 
 	/**
 	 * Get ticket by ID
@@ -51,16 +51,16 @@ public interface ExternalSystemStrategy {
 	 * @param system External System details
 	 * @return Optional of Ticket
 	 */
-	Optional<Ticket> getTicket(String id, ExternalSystem system);
+	Optional<Ticket> getTicket(String id, ExternalSystemResource system);
 
 	/**
 	 * Submit ticket into external system
 	 *
 	 * @param ticketRQ Ticket Request
-	 * @param system External System
+	 * @param system   External System
 	 * @return Submitted Ticket
 	 */
-	Ticket submitTicket(PostTicketRQ ticketRQ, ExternalSystem system);
+	Ticket submitTicket(PostTicketRQ ticketRQ, ExternalSystemResource system);
 
 	/**
 	 * Get map of fields for ticket POST into external system
@@ -69,14 +69,13 @@ public interface ExternalSystemStrategy {
 	 * @param system    External System details
 	 * @return List of Found fields related to issue type
 	 */
-	List<PostFormField> getTicketFields(String issueType, ExternalSystem system);
-
+	List<PostFormField> getTicketFields(String issueType, ExternalSystemResource system);
 
 	/**
 	 * Get list of available types of issues
 	 *
-	 * @param system    External System details
+	 * @param system External System details
 	 * @return List of Found fields related to issue type
 	 */
-	List<String> getIssueTypes(ExternalSystem system);
+	List<String> getIssueTypes(ExternalSystemResource system);
 }

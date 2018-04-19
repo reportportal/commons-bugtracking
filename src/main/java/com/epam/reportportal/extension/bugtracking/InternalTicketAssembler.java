@@ -21,22 +21,13 @@
 
 package com.epam.reportportal.extension.bugtracking;
 
-import com.epam.ta.reportportal.database.BinaryData;
-import com.epam.ta.reportportal.database.DataStorage;
-import com.epam.ta.reportportal.database.dao.LogRepository;
-import com.epam.ta.reportportal.database.dao.TestItemRepository;
-import com.epam.ta.reportportal.database.entity.Log;
-import com.epam.ta.reportportal.database.entity.item.TestItem;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostFormField;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostTicketRQ;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
 
 
@@ -48,14 +39,14 @@ import java.util.function.Function;
 @Service
 public class InternalTicketAssembler implements Function<PostTicketRQ, InternalTicket> {
 
-	@Autowired
-	private LogRepository logRepository;
-
-	@Autowired
-	private TestItemRepository itemRepository;
-
-	@Autowired
-	private DataStorage dataStorage;
+//	@Autowired
+//	private LogRepository logRepository;
+//
+//	@Autowired
+//	private TestItemRepository itemRepository;
+//
+//	@Autowired
+//	private DataStorage dataStorage;
 
 	@Override
 	public InternalTicket apply(PostTicketRQ input) {
@@ -69,27 +60,27 @@ public class InternalTicketAssembler implements Function<PostTicketRQ, InternalT
 			ticket.setFields(fieldsMultimap);
 		}
 
-		if (input.getIsIncludeLogs() || input.getIsIncludeScreenshots()) {
-			List<Log> logs = logRepository.findByTestItemRef(input.getTestItemId(), 0 == input.getNumberOfLogs() ? Integer.MAX_VALUE
-					: input.getNumberOfLogs(), input.getIsIncludeScreenshots());
-			List<InternalTicket.LogEntry> entries = new ArrayList<>(logs.size());
-			for (Log log : logs) {
-				BinaryData attachment = null;
-				/* Get screenshots if required and they are present */
-				if (null != log.getBinaryContent() && input.getIsIncludeScreenshots()) {
-					attachment = dataStorage.fetchData(log.getBinaryContent().getBinaryDataId());
-				}
-				/* Forwarding enabled logs boolean if screens only required */
-				entries.add(new InternalTicket.LogEntry(log, attachment, input.getIsIncludeLogs()));
-			}
-			ticket.setLogs(entries);
-		}
-
-		if (input.getIsIncludeComments()) {
-			TestItem testItem = itemRepository.findOne(input.getTestItemId());
-			if (null != testItem.getIssue().getIssueDescription())
-				ticket.setComments(testItem.getIssue().getIssueDescription());
-		}
+//		if (input.getIsIncludeLogs() || input.getIsIncludeScreenshots()) {
+//			List<Log> logs = logRepository.findByTestItemRef(input.getTestItemId(), 0 == input.getNumberOfLogs() ? Integer.MAX_VALUE
+//					: input.getNumberOfLogs(), input.getIsIncludeScreenshots());
+//			List<InternalTicket.LogEntry> entries = new ArrayList<>(logs.size());
+//			for (Log log : logs) {
+//				BinaryData attachment = null;
+//				/* Get screenshots if required and they are present */
+//				if (null != log.getBinaryContent() && input.getIsIncludeScreenshots()) {
+//					attachment = dataStorage.fetchData(log.getBinaryContent().getBinaryDataId());
+//				}
+//				/* Forwarding enabled logs boolean if screens only required */
+//				entries.add(new InternalTicket.LogEntry(log, attachment, input.getIsIncludeLogs()));
+//			}
+//			ticket.setLogs(entries);
+//		}
+//
+//		if (input.getIsIncludeComments()) {
+//			TestItem testItem = itemRepository.findOne(input.getTestItemId());
+//			if (null != testItem.getIssue().getIssueDescription())
+//				ticket.setComments(testItem.getIssue().getIssueDescription());
+//		}
 
 		if (!CommonPredicates.IS_MAP_EMPTY.test(input.getBackLinks())) {
 			ticket.setBackLinks(ImmutableMap.copyOf(input.getBackLinks()));

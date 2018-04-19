@@ -25,7 +25,6 @@ import com.epam.ta.reportportal.commons.ExceptionMappings;
 import com.epam.ta.reportportal.commons.exception.rest.DefaultErrorResolver;
 import com.epam.ta.reportportal.commons.exception.rest.ReportPortalExceptionResolver;
 import com.epam.ta.reportportal.commons.exception.rest.RestExceptionHandler;
-import com.epam.ta.reportportal.config.MongodbConfiguration;
 import org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
@@ -33,7 +32,6 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -50,7 +48,7 @@ import java.util.List;
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class,
 		MongoAutoConfiguration.class, MongoDataAutoConfiguration.class })
 @EnableDiscoveryClient
-@Import(MongodbConfiguration.class)
+//@Import(MongodbConfiguration.class)
 abstract public class BugTrackingApp extends WebMvcConfigurerAdapter {
 
 	@Override
