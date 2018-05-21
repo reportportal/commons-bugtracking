@@ -21,8 +21,11 @@
 
 package com.epam.reportportal.extension.bugtracking;
 
+import com.epam.ta.reportportal.database.BinaryData;
+import com.epam.ta.reportportal.database.entity.Log;
 import com.google.common.collect.Multimap;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,7 +39,7 @@ public class InternalTicket {
 
 	private Multimap<String, String> fields;
 
-//	private List<LogEntry> logs;
+	private List<LogEntry> logs;
 
 	/**
 	 * Item --> Item URL map
@@ -67,13 +70,13 @@ public class InternalTicket {
 		this.fields = fields;
 	}
 
-//	public List<LogEntry> getLogs() {
-//		return logs;
-//	}
-//
-//	public void setLogs(List<LogEntry> logs) {
-//		this.logs = logs;
-//	}
+	public List<LogEntry> getLogs() {
+		return logs;
+	}
+
+	public void setLogs(List<LogEntry> logs) {
+		this.logs = logs;
+	}
 
 	public Map<String, String> getBackLinks() {
 		return backLinks;
@@ -83,27 +86,27 @@ public class InternalTicket {
 		this.backLinks = backLinks;
 	}
 
-//	public static class LogEntry {
-//		private Log log;
-//		private BinaryData attachment;
-//		private boolean isIncludeLogs;
-//
-//		public LogEntry(Log log, BinaryData attachment, boolean includeLogs) {
-//			this.log = log;
-//			this.attachment = attachment;
-//			this.isIncludeLogs = includeLogs;
-//		}
-//
-//		public Log getLog() {
-//			return log;
-//		}
-//
-//		public BinaryData getAttachment() {
-//			return attachment;
-//		}
-//
-//		public boolean getIncludeLogs() {
-//			return isIncludeLogs;
-//		}
-//	}
+	public static class LogEntry {
+		private Log log;
+		private BinaryData attachment;
+		private boolean isIncludeLogs;
+
+		public LogEntry(Log log, BinaryData attachment, boolean includeLogs) {
+			this.log = log;
+			this.attachment = attachment;
+			this.isIncludeLogs = includeLogs;
+		}
+
+		public Log getLog() {
+			return log;
+		}
+
+		public BinaryData getAttachment() {
+			return attachment;
+		}
+
+		public boolean getIncludeLogs() {
+			return isIncludeLogs;
+		}
+	}
 }

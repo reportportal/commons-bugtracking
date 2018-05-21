@@ -21,11 +21,10 @@
 
 package com.epam.reportportal.extension.bugtracking;
 
-import com.epam.ta.reportportal.ws.model.externalsystem.ExternalSystemResource;
+import com.epam.ta.reportportal.database.entity.ExternalSystem;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostFormField;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostTicketRQ;
 import com.epam.ta.reportportal.ws.model.externalsystem.Ticket;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +41,7 @@ public interface ExternalSystemStrategy {
 	 * @param system - external system details
 	 * @return TRUE of connection is OK
 	 */
-	boolean checkConnection(ExternalSystemResource system);
+	boolean checkConnection(ExternalSystem system);
 
 	/**
 	 * Get ticket by ID
@@ -51,7 +50,7 @@ public interface ExternalSystemStrategy {
 	 * @param system External System details
 	 * @return Optional of Ticket
 	 */
-	Optional<Ticket> getTicket(String id, ExternalSystemResource system);
+	Optional<Ticket> getTicket(String id, ExternalSystem system);
 
 	/**
 	 * Submit ticket into external system
@@ -60,7 +59,7 @@ public interface ExternalSystemStrategy {
 	 * @param system   External System
 	 * @return Submitted Ticket
 	 */
-	Ticket submitTicket(PostTicketRQ ticketRQ, ExternalSystemResource system);
+	Ticket submitTicket(PostTicketRQ ticketRQ, ExternalSystem system);
 
 	/**
 	 * Get map of fields for ticket POST into external system
@@ -69,7 +68,7 @@ public interface ExternalSystemStrategy {
 	 * @param system    External System details
 	 * @return List of Found fields related to issue type
 	 */
-	List<PostFormField> getTicketFields(String issueType, ExternalSystemResource system);
+	List<PostFormField> getTicketFields(String issueType, ExternalSystem system);
 
 	/**
 	 * Get list of available types of issues
@@ -77,5 +76,5 @@ public interface ExternalSystemStrategy {
 	 * @param system External System details
 	 * @return List of Found fields related to issue type
 	 */
-	List<String> getIssueTypes(ExternalSystemResource system);
+	List<String> getIssueTypes(ExternalSystem system);
 }
