@@ -22,7 +22,7 @@ public class LogRepositoryAdapterTest {
     private RabbitTemplate rabbitTemplate;
 
     @InjectMocks
-    private LogRepositoryAdapter logRepositoryAdapter = new LogRepositoryAdapter();
+    private LogRepositoryAdapter logRepositoryAdapter;
 
     @Test
     public void testFindByTestItemRef() {

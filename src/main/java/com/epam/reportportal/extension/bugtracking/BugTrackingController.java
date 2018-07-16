@@ -21,21 +21,20 @@
 
 package com.epam.reportportal.extension.bugtracking;
 
-import com.epam.reportportal.extension.adapter.ExternalSystemRepositoryAdapter;
-import com.epam.ta.reportportal.commons.Preconditions;
+import com.epam.reportportal.extension.adapter.IntegrationRepositoryAdapter;
 import com.epam.ta.reportportal.commons.validation.BusinessRule;
-import com.epam.ta.reportportal.database.entity.ExternalSystem;
+import com.epam.ta.reportportal.entity.integration.Integration;
 import com.epam.ta.reportportal.ws.model.ErrorType;
 import com.epam.ta.reportportal.ws.model.YesNoRS;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostFormField;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostTicketRQ;
 import com.epam.ta.reportportal.ws.model.externalsystem.Ticket;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
@@ -48,22 +47,22 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 public class BugTrackingController {
 
 	@Autowired
-	private ExternalSystemStrategy externalSystemStrategy;
+	private BugTrackingService bugTrackingService;
 
 	@Autowired
-	private ExternalSystemRepositoryAdapter externalSystemRepositoryAdapter;
+	private IntegrationRepositoryAdapter integrationRepositoryAdapter;
 
-    @RequestMapping(method = RequestMethod.POST, path = "/check", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public YesNoRS checkConnection(@RequestBody ExternalSystem externalSystem) {
-        return new YesNoRS(externalSystemStrategy.checkConnection(externalSystem));
-    }
+	@RequestMapping(method = RequestMethod.POST, path = "/check", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public YesNoRS checkConnection(@RequestBody Integration externalSystem) {
+		return new YesNoRS(bugTrackingService.checkConnection(externalSystem));
+	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{systemId}/ticket/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public Ticket getTicket(@PathVariable String systemId, @PathVariable String id) {
-		Optional<Ticket> ticket = externalSystemStrategy.getTicket(id, externalSystemRepositoryAdapter.findOne(systemId));
-		BusinessRule.expect(ticket, Preconditions.IS_PRESENT).verify(ErrorType.TICKET_NOT_FOUND, id);
+		Optional<Ticket> ticket = bugTrackingService.getTicket(id, integrationRepositoryAdapter.findOne(systemId));
+		BusinessRule.expect(ticket, Optional::isPresent).verify(ErrorType.TICKET_NOT_FOUND, id);
 		//noinspection OptionalGetWithoutIsPresent
 		return ticket.get();
 	}
@@ -71,18 +70,18 @@ public class BugTrackingController {
 	@RequestMapping(method = RequestMethod.POST, path = "/{systemId}/ticket", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public Ticket submitTicket(@PathVariable String systemId, @RequestBody PostTicketRQ ticketRQ) {
-		return externalSystemStrategy.submitTicket(ticketRQ, externalSystemRepositoryAdapter.findOne(systemId));
+		return bugTrackingService.submitTicket(ticketRQ, integrationRepositoryAdapter.findOne(systemId));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{systemId}/ticket/types", produces = APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public List<String> getIssueTypes(@PathVariable String systemId) {
-		return externalSystemStrategy.getIssueTypes(externalSystemRepositoryAdapter.findOne(systemId));
+		return bugTrackingService.getIssueTypes(integrationRepositoryAdapter.findOne(systemId));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{systemId}/ticket/{issueType}/fields", produces = APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public List<PostFormField> getTicketFields(@PathVariable String systemId, @PathVariable String issueType) {
-		return externalSystemStrategy.getTicketFields(issueType, externalSystemRepositoryAdapter.findOne(systemId));
+		return bugTrackingService.getTicketFields(issueType, integrationRepositoryAdapter.findOne(systemId));
 	}
 }

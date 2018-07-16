@@ -1,14 +1,6 @@
 package com.epam.reportportal.extension.adapter;
 
-import static com.epam.reportportal.extension.constants.RabbitConstants.QueueNames.EXTERNAL_SYSTEMS_FIND_ONE;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import com.epam.ta.reportportal.database.entity.ExternalSystem;
-import java.util.List;
+import com.epam.ta.reportportal.entity.integration.Integration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -17,27 +9,36 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+import java.util.List;
+
+import static com.epam.reportportal.extension.constants.RabbitConstants.QueueNames.EXTERNAL_SYSTEMS_FIND_ONE;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
-public class ExternalSystemRepositoryAdapterTest {
+public class IntegrationRepositoryAdapterTest {
 
     @Mock
     private RabbitTemplate rabbitTemplate;
 
     @InjectMocks
-    private ExternalSystemRepositoryAdapter externalSystemRepositoryAdapter = new ExternalSystemRepositoryAdapter();
+    private IntegrationRepositoryAdapter integrationRepositoryAdapter;
 
     @Test
     public void testFindOne() {
 
         //given:
         String systemId = "test";
-        ExternalSystem externalSystem = new ExternalSystem();
+        Integration externalSystem = new Integration();
 
         //setup:
         when(rabbitTemplate.convertSendAndReceive(any(), eq(systemId))).thenReturn(externalSystem);
 
         //when:
-        externalSystemRepositoryAdapter.findOne(systemId);
+        integrationRepositoryAdapter.findOne(systemId);
 
         //then:
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);

@@ -1,14 +1,6 @@
 package com.epam.reportportal.extension.adapter;
 
-import static com.epam.reportportal.extension.constants.RabbitConstants.QueueNames.TEST_ITEMS_FIND_ONE_QUEUE;
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import com.epam.ta.reportportal.database.entity.item.TestItem;
-import java.util.List;
+import com.epam.ta.reportportal.entity.item.TestItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -17,36 +9,45 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+import java.util.List;
+
+import static com.epam.reportportal.extension.constants.RabbitConstants.QueueNames.TEST_ITEMS_FIND_ONE_QUEUE;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class TestItemRepositoryAdapterTest {
 
-    @Mock
-    private RabbitTemplate rabbitTemplate;
+	@Mock
+	private RabbitTemplate rabbitTemplate;
 
-    @InjectMocks
-    private TestItemRepositoryAdapter testItemRepositoryAdapter = new TestItemRepositoryAdapter();
+	@InjectMocks
+	private TestItemRepositoryAdapter testItemRepositoryAdapter;
 
-    @Test
-    public void testFindOne() {
+	@Test
+	public void testFindOne() {
 
-        //given:
-        String itemId = "test";
-        TestItem testItem = new TestItem();
+		//given:
+		String itemId = "test";
+		TestItem testItem = new TestItem();
 
-        //setup:
-        when(rabbitTemplate.convertSendAndReceive(any(), eq(itemId))).thenReturn(testItem);
+		//setup:
+		when(rabbitTemplate.convertSendAndReceive(any(), eq(itemId))).thenReturn(testItem);
 
-        //when:
-        testItemRepositoryAdapter.findOne(itemId);
+		//when:
+		testItemRepositoryAdapter.findOne(itemId);
 
-        //then:
-        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		//then:
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 
-        verify(rabbitTemplate).convertSendAndReceive(captor.capture(), captor.capture());
+		verify(rabbitTemplate).convertSendAndReceive(captor.capture(), captor.capture());
 
-        List<String> capturedItems = captor.getAllValues();
+		List<String> capturedItems = captor.getAllValues();
 
-        assertEquals(TEST_ITEMS_FIND_ONE_QUEUE, capturedItems.get(0));
-        assertEquals(itemId, capturedItems.get(1));
-    }
+		assertEquals(TEST_ITEMS_FIND_ONE_QUEUE, capturedItems.get(0));
+		assertEquals(itemId, capturedItems.get(1));
+	}
 }

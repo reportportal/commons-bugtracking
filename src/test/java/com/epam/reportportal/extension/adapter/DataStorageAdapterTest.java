@@ -7,8 +7,9 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.epam.ta.reportportal.database.BinaryData;
 import java.util.List;
+
+import com.epam.ta.reportportal.BinaryData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -24,7 +25,7 @@ public class DataStorageAdapterTest {
     private RabbitTemplate rabbitTemplate;
 
     @InjectMocks
-    private DataStorageAdapter dataStorageAdapter = new DataStorageAdapter();
+    private DataStorageAdapter dataStorageAdapter;
 
     @Test
     public void testFetchData() {
