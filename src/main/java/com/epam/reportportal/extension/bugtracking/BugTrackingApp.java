@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +41,7 @@ import java.util.List;
  * @author Andrei Varabyeu
  */
 @SpringBootApplication
-abstract public class BugTrackingApp extends WebMvcConfigurerAdapter {
+abstract public class BugTrackingApp implements WebMvcConfigurer {
 
 	@Override
 	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {

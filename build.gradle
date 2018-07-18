@@ -25,7 +25,7 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven { url  "http://dl.bintray.com/epam/reportportal" }
+    maven { url "http://dl.bintray.com/epam/reportportal" }
     maven { url "https://jitpack.io" }
 }
 
@@ -47,8 +47,8 @@ dependencies {
         compile 'com.epam.reportportal:commons-dao:4.0.3'
     } else {
         compile 'com.github.reportportal:commons-model:4.0.3'
-        compile('com.github.reportportal:commons-dao:9da4e7d')
-        compile('com.github.reportportal:commons-rules:4.0.1')
+        compile 'com.github.reportportal:commons-dao:cd2cb9c'
+        compile 'com.github.reportportal:commons-rules:9be7152'
     }
 
     compile 'org.springframework.boot:spring-boot-starter-web'
