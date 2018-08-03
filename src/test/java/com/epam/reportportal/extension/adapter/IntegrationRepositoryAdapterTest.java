@@ -11,7 +11,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.util.List;
 
-import static com.epam.reportportal.extension.constants.RabbitConstants.QueueNames.EXTERNAL_SYSTEMS_FIND_ONE;
+import static com.epam.reportportal.extension.constants.RabbitConstants.QueueNames.INTEGRATION_FIND_ONE;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -47,7 +47,7 @@ public class IntegrationRepositoryAdapterTest {
 
         List<String> capturedItems = captor.getAllValues();
 
-        assertEquals(EXTERNAL_SYSTEMS_FIND_ONE, capturedItems.get(0));
+        assertEquals(INTEGRATION_FIND_ONE, capturedItems.get(0));
         assertEquals(systemId, capturedItems.get(1));
     }
 

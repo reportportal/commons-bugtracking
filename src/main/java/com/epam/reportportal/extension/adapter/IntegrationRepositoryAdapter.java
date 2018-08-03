@@ -1,11 +1,11 @@
 package com.epam.reportportal.extension.adapter;
 
-import static com.epam.reportportal.extension.constants.RabbitConstants.QueueNames.EXTERNAL_SYSTEMS_FIND_ONE;
-
 import com.epam.ta.reportportal.entity.integration.Integration;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import static com.epam.reportportal.extension.constants.RabbitConstants.QueueNames.INTEGRATION_FIND_ONE;
 
 @Component
 public class IntegrationRepositoryAdapter {
@@ -18,6 +18,6 @@ public class IntegrationRepositoryAdapter {
     }
 
     public Integration findOne(String systemId) {
-        return (Integration) rabbitTemplate.convertSendAndReceive(EXTERNAL_SYSTEMS_FIND_ONE, systemId);
+        return (Integration) rabbitTemplate.convertSendAndReceive(INTEGRATION_FIND_ONE, systemId);
     }
 }
