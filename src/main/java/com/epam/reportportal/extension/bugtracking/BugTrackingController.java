@@ -60,7 +60,7 @@ public class BugTrackingController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{systemId}/ticket/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public Ticket getTicket(@PathVariable String systemId, @PathVariable String id) {
+	public Ticket getTicket(@PathVariable Long systemId, @PathVariable String id) {
 		Optional<Ticket> ticket = bugTrackingService.getTicket(id, integrationRepositoryAdapter.findOne(systemId));
 		BusinessRule.expect(ticket, Optional::isPresent).verify(ErrorType.TICKET_NOT_FOUND, id);
 		//noinspection OptionalGetWithoutIsPresent
@@ -69,19 +69,19 @@ public class BugTrackingController {
 
 	@RequestMapping(method = RequestMethod.POST, path = "/{systemId}/ticket", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public Ticket submitTicket(@PathVariable String systemId, @RequestBody PostTicketRQ ticketRQ) {
+	public Ticket submitTicket(@PathVariable Long systemId, @RequestBody PostTicketRQ ticketRQ) {
 		return bugTrackingService.submitTicket(ticketRQ, integrationRepositoryAdapter.findOne(systemId));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{systemId}/ticket/types", produces = APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public List<String> getIssueTypes(@PathVariable String systemId) {
+	public List<String> getIssueTypes(@PathVariable Long systemId) {
 		return bugTrackingService.getIssueTypes(integrationRepositoryAdapter.findOne(systemId));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{systemId}/ticket/{issueType}/fields", produces = APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public List<PostFormField> getTicketFields(@PathVariable String systemId, @PathVariable String issueType) {
+	public List<PostFormField> getTicketFields(@PathVariable Long systemId, @PathVariable String issueType) {
 		return bugTrackingService.getTicketFields(issueType, integrationRepositoryAdapter.findOne(systemId));
 	}
 }

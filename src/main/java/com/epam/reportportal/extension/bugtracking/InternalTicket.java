@@ -44,7 +44,7 @@ public class InternalTicket {
 	/**
 	 * Item --> Item URL map
 	 */
-	private Map<String, String> backLinks;
+	private Map<Long, String> backLinks;
 
 	public String getSummary() {
 		return summary;
@@ -78,11 +78,11 @@ public class InternalTicket {
 		this.logs = logs;
 	}
 
-	public Map<String, String> getBackLinks() {
+	public Map<Long, String> getBackLinks() {
 		return backLinks;
 	}
 
-	public void setBackLinks(Map<String, String> backLinks) {
+	public void setBackLinks(Map<Long, String> backLinks) {
 		this.backLinks = backLinks;
 	}
 

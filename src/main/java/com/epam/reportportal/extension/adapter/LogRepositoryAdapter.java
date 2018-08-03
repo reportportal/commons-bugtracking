@@ -23,7 +23,7 @@ public class LogRepositoryAdapter {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-	public List<Log> findByTestItemRef(String itemRef, Integer limit, Boolean isLoadBinaryData) {
+	public List<Log> findByTestItemRef(Long itemRef, Integer limit, Boolean isLoadBinaryData) {
 
 		MessageProperties messageProperties = new MessageProperties();
 		messageProperties.setHeader(ITEM_REF, itemRef);

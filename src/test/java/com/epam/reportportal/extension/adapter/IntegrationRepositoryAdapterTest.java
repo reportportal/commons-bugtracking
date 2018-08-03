@@ -21,34 +21,34 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class IntegrationRepositoryAdapterTest {
 
-    @Mock
-    private RabbitTemplate rabbitTemplate;
+	@Mock
+	private RabbitTemplate rabbitTemplate;
 
-    @InjectMocks
-    private IntegrationRepositoryAdapter integrationRepositoryAdapter;
+	@InjectMocks
+	private IntegrationRepositoryAdapter integrationRepositoryAdapter;
 
-    @Test
-    public void testFindOne() {
+	@Test
+	public void testFindOne() {
 
-        //given:
-        String systemId = "test";
-        Integration externalSystem = new Integration();
+		//given:
+		Long systemId = 1L;
+		Integration externalSystem = new Integration();
 
-        //setup:
-        when(rabbitTemplate.convertSendAndReceive(any(), eq(systemId))).thenReturn(externalSystem);
+		//setup:
+		when(rabbitTemplate.convertSendAndReceive(any(), eq(systemId))).thenReturn(externalSystem);
 
-        //when:
-        integrationRepositoryAdapter.findOne(systemId);
+		//when:
+		integrationRepositoryAdapter.findOne(systemId);
 
-        //then:
-        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		//then:
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 
-        verify(rabbitTemplate).convertSendAndReceive(captor.capture(), captor.capture());
+		verify(rabbitTemplate).convertSendAndReceive(captor.capture(), captor.capture());
 
-        List<String> capturedItems = captor.getAllValues();
+		List<String> capturedItems = captor.getAllValues();
 
-        assertEquals(INTEGRATION_FIND_ONE, capturedItems.get(0));
-        assertEquals(systemId, capturedItems.get(1));
-    }
+		assertEquals(INTEGRATION_FIND_ONE, capturedItems.get(0));
+		assertEquals(systemId, capturedItems.get(1));
+	}
 
 }

@@ -21,7 +21,7 @@ public class TestItemRepositoryAdapter {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-	public TestItem findOne(String itemId) {
+	public TestItem findOne(Long itemId) {
 		return rabbitTemplate.convertSendAndReceiveAsType(TEST_ITEMS_FIND_ONE_QUEUE, itemId, new ParameterizedTypeReference<TestItem>() {
 		});
 	}

@@ -18,7 +18,7 @@ public class IntegrationRepositoryAdapter {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public Integration findOne(String systemId) {
+    public Integration findOne(Long systemId) {
         return rabbitTemplate.convertSendAndReceiveAsType(INTEGRATION_FIND_ONE, systemId, new ParameterizedTypeReference<Integration>() {
         });
     }

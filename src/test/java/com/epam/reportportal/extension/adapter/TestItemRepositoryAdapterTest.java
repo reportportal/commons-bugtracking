@@ -31,7 +31,7 @@ public class TestItemRepositoryAdapterTest {
 	public void testFindOne() {
 
 		//given:
-		String itemId = "test";
+		Long itemId = 1L;
 		TestItem testItem = new TestItem();
 
 		//setup:
