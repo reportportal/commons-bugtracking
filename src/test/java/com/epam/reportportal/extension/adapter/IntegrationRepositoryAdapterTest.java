@@ -35,7 +35,7 @@ public class IntegrationRepositoryAdapterTest {
 		Integration externalSystem = new Integration();
 
 		//setup:
-		when(rabbitTemplate.convertSendAndReceive(any(), eq(systemId))).thenReturn(externalSystem);
+		when(rabbitTemplate.convertSendAndReceiveAsType(any(), eq(systemId), any())).thenReturn(externalSystem);
 
 		//when:
 		integrationRepositoryAdapter.findOne(systemId);
@@ -43,7 +43,7 @@ public class IntegrationRepositoryAdapterTest {
 		//then:
 		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 
-		verify(rabbitTemplate).convertSendAndReceive(captor.capture(), captor.capture());
+		verify(rabbitTemplate).convertSendAndReceiveAsType(captor.capture(), captor.capture(), any());
 
 		List<String> capturedItems = captor.getAllValues();
 

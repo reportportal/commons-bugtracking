@@ -35,7 +35,7 @@ public class TestItemRepositoryAdapterTest {
 		TestItem testItem = new TestItem();
 
 		//setup:
-		when(rabbitTemplate.convertSendAndReceive(any(), eq(itemId))).thenReturn(testItem);
+		when(rabbitTemplate.convertSendAndReceiveAsType(any(), eq(itemId), any())).thenReturn(testItem);
 
 		//when:
 		testItemRepositoryAdapter.findOne(itemId);
@@ -43,7 +43,7 @@ public class TestItemRepositoryAdapterTest {
 		//then:
 		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 
-		verify(rabbitTemplate).convertSendAndReceive(captor.capture(), captor.capture());
+		verify(rabbitTemplate).convertSendAndReceiveAsType(captor.capture(), captor.capture(), any());
 
 		List<String> capturedItems = captor.getAllValues();
 

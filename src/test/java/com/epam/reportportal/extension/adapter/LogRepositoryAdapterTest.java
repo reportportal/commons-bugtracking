@@ -34,7 +34,7 @@ public class LogRepositoryAdapterTest {
 		boolean isLoadBinaryData = true;
 
 		//setup:
-		when(rabbitTemplate.convertSendAndReceive(any(), (Object) any())).thenReturn(new ArrayList<>());
+		when(rabbitTemplate.convertSendAndReceiveAsType(any(), (Object) any(), any())).thenReturn(new ArrayList<>());
 
 		//when:
 		logRepositoryAdapter.findByTestItemRef(itemRef, limit, isLoadBinaryData);
@@ -42,7 +42,7 @@ public class LogRepositoryAdapterTest {
 		//then:
 		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 
-		verify(rabbitTemplate).convertSendAndReceive(captor.capture(), (Object) any());
+		verify(rabbitTemplate).convertSendAndReceiveAsType(captor.capture(), (Object) any(), any());
 
 		String capturedQueueName = captor.getValue();
 
