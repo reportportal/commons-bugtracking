@@ -5,6 +5,7 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -29,6 +30,11 @@ public class LogRepositoryAdapter {
 		messageProperties.setHeader(LIMIT, limit);
 		messageProperties.setHeader(IS_LOAD_BINARY_DATA, isLoadBinaryData);
 
-		return (List<Log>) rabbitTemplate.convertSendAndReceive(LOGS_FIND_BY_TEST_ITEM_REF_QUEUE, new Message(null, messageProperties));
+		return rabbitTemplate.convertSendAndReceiveAsType(
+				LOGS_FIND_BY_TEST_ITEM_REF_QUEUE,
+				new Message(null, messageProperties),
+				new ParameterizedTypeReference<List<Log>>() {
+				}
+		);
 	}
 }

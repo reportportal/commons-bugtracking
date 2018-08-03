@@ -3,6 +3,7 @@ package com.epam.reportportal.extension.adapter;
 import com.epam.ta.reportportal.BinaryData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 
 import static com.epam.reportportal.extension.constants.RabbitConstants.QueueNames.DATA_STORAGE_FETCH_DATA_QUEUE;
@@ -21,7 +22,10 @@ public class DataStorageAdapter {
 	}
 
 	public BinaryData fetchData(String dataId) {
-
-		return (BinaryData) rabbitTemplate.convertSendAndReceive(DATA_STORAGE_FETCH_DATA_QUEUE, dataId);
+		return rabbitTemplate.convertSendAndReceiveAsType(DATA_STORAGE_FETCH_DATA_QUEUE,
+				dataId,
+				new ParameterizedTypeReference<BinaryData>() {
+				}
+		);
 	}
 }

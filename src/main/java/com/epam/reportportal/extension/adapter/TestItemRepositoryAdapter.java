@@ -3,6 +3,7 @@ package com.epam.reportportal.extension.adapter;
 import com.epam.ta.reportportal.entity.item.TestItem;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 
 import static com.epam.reportportal.extension.constants.RabbitConstants.QueueNames.TEST_ITEMS_FIND_ONE_QUEUE;
@@ -21,6 +22,7 @@ public class TestItemRepositoryAdapter {
 	}
 
 	public TestItem findOne(String itemId) {
-		return (TestItem) rabbitTemplate.convertSendAndReceive(TEST_ITEMS_FIND_ONE_QUEUE, itemId);
+		return rabbitTemplate.convertSendAndReceiveAsType(TEST_ITEMS_FIND_ONE_QUEUE, itemId, new ParameterizedTypeReference<TestItem>() {
+		});
 	}
 }

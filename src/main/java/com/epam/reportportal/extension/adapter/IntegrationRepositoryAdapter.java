@@ -3,6 +3,7 @@ package com.epam.reportportal.extension.adapter;
 import com.epam.ta.reportportal.entity.integration.Integration;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 
 import static com.epam.reportportal.extension.constants.RabbitConstants.QueueNames.INTEGRATION_FIND_ONE;
@@ -18,6 +19,7 @@ public class IntegrationRepositoryAdapter {
     }
 
     public Integration findOne(String systemId) {
-        return (Integration) rabbitTemplate.convertSendAndReceive(INTEGRATION_FIND_ONE, systemId);
+        return rabbitTemplate.convertSendAndReceiveAsType(INTEGRATION_FIND_ONE, systemId, new ParameterizedTypeReference<Integration>() {
+        });
     }
 }

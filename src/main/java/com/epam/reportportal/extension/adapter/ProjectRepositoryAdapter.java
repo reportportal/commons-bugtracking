@@ -22,10 +22,7 @@ public class ProjectRepositoryAdapter {
 	}
 
 	public Project findByName(String projectName) {
-		return rabbitTemplate.convertSendAndReceiveAsType(
-				PROJECTS_FIND_BY_NAME,
-				projectName,
-				ParameterizedTypeReference.forType(Project.class)
-		);
+		return rabbitTemplate.convertSendAndReceiveAsType(PROJECTS_FIND_BY_NAME, projectName, new ParameterizedTypeReference<Project>() {
+		});
 	}
 }
