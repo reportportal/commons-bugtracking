@@ -23,12 +23,12 @@ package com.epam.reportportal.extension.bugtracking;
 
 import com.epam.reportportal.extension.adapter.IntegrationRepositoryAdapter;
 import com.epam.ta.reportportal.commons.validation.BusinessRule;
-import com.epam.ta.reportportal.entity.integration.Integration;
 import com.epam.ta.reportportal.ws.model.ErrorType;
 import com.epam.ta.reportportal.ws.model.YesNoRS;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostFormField;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostTicketRQ;
 import com.epam.ta.reportportal.ws.model.externalsystem.Ticket;
+import com.epam.ta.reportportal.ws.model.integration.IntegrationResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -54,8 +54,8 @@ public class BugTrackingController {
 
 	@RequestMapping(method = RequestMethod.POST, path = "/check", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public YesNoRS checkConnection(@RequestBody Integration externalSystem) {
-		return new YesNoRS(bugTrackingService.checkConnection(externalSystem));
+	public YesNoRS checkConnection(@RequestBody IntegrationResource integration) {
+		return new YesNoRS(bugTrackingService.checkConnection(integration));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{systemId}/ticket/{id}", produces = APPLICATION_JSON_UTF8_VALUE)

@@ -21,10 +21,10 @@
 
 package com.epam.reportportal.extension.bugtracking;
 
-import com.epam.ta.reportportal.entity.integration.Integration;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostFormField;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostTicketRQ;
 import com.epam.ta.reportportal.ws.model.externalsystem.Ticket;
+import com.epam.ta.reportportal.ws.model.integration.IntegrationResource;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +42,7 @@ public interface BugTrackingService {
 	 * @param system - external system details
 	 * @return TRUE of connection is OK
 	 */
-	boolean checkConnection(Integration system);
+	boolean checkConnection(IntegrationResource system);
 
 	/**
 	 * Get ticket by ID
@@ -51,7 +51,7 @@ public interface BugTrackingService {
 	 * @param system External System details
 	 * @return Optional of Ticket
 	 */
-	Optional<Ticket> getTicket(String id, Integration system);
+	Optional<Ticket> getTicket(String id, IntegrationResource system);
 
 	/**
 	 * Submit ticket into external system
@@ -60,7 +60,7 @@ public interface BugTrackingService {
 	 * @param system   External System
 	 * @return Submitted Ticket
 	 */
-	Ticket submitTicket(PostTicketRQ ticketRQ, Integration system);
+	Ticket submitTicket(PostTicketRQ ticketRQ, IntegrationResource system);
 
 	/**
 	 * Get map of fields for ticket POST into external system
@@ -69,7 +69,7 @@ public interface BugTrackingService {
 	 * @param system    External System details
 	 * @return List of Found fields related to issue type
 	 */
-	List<PostFormField> getTicketFields(String issueType, Integration system);
+	List<PostFormField> getTicketFields(String issueType, IntegrationResource system);
 
 	/**
 	 * Get list of available types of issues
@@ -77,5 +77,5 @@ public interface BugTrackingService {
 	 * @param system External System details
 	 * @return List of Found fields related to issue type
 	 */
-	List<String> getIssueTypes(Integration system);
+	List<String> getIssueTypes(IntegrationResource system);
 }

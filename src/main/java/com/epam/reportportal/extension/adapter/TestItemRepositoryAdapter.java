@@ -1,6 +1,6 @@
 package com.epam.reportportal.extension.adapter;
 
-import com.epam.ta.reportportal.entity.item.TestItem;
+import com.epam.ta.reportportal.ws.model.TestItemResource;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -21,8 +21,8 @@ public class TestItemRepositoryAdapter {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-	public TestItem findOne(Long itemId) {
-		return rabbitTemplate.convertSendAndReceiveAsType(TEST_ITEMS_FIND_ONE_QUEUE, itemId, new ParameterizedTypeReference<TestItem>() {
+	public TestItemResource findOne(Long itemId) {
+		return rabbitTemplate.convertSendAndReceiveAsType(TEST_ITEMS_FIND_ONE_QUEUE, itemId, new ParameterizedTypeReference<TestItemResource>() {
 		});
 	}
 }

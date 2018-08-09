@@ -1,6 +1,6 @@
 package com.epam.reportportal.extension.adapter;
 
-import com.epam.ta.reportportal.entity.log.Log;
+import com.epam.ta.reportportal.ws.model.log.LogResource;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -23,7 +23,7 @@ public class LogRepositoryAdapter {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-	public List<Log> findByTestItemRef(Long itemRef, Integer limit, Boolean isLoadBinaryData) {
+	public List<LogResource> findByTestItemRef(Long itemRef, Integer limit, Boolean isLoadBinaryData) {
 
 		MessageProperties messageProperties = new MessageProperties();
 		messageProperties.setHeader(ITEM_REF, itemRef);
@@ -33,7 +33,7 @@ public class LogRepositoryAdapter {
 		return rabbitTemplate.convertSendAndReceiveAsType(
 				LOGS_FIND_BY_TEST_ITEM_REF_QUEUE,
 				new Message(null, messageProperties),
-				new ParameterizedTypeReference<List<Log>>() {
+				new ParameterizedTypeReference<List<LogResource>>() {
 				}
 		);
 	}

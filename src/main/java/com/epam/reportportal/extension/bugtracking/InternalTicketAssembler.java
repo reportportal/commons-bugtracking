@@ -24,9 +24,6 @@ package com.epam.reportportal.extension.bugtracking;
 import com.epam.reportportal.extension.adapter.DataStorageAdapter;
 import com.epam.reportportal.extension.adapter.LogRepositoryAdapter;
 import com.epam.reportportal.extension.adapter.TestItemRepositoryAdapter;
-import com.epam.ta.reportportal.BinaryData;
-import com.epam.ta.reportportal.entity.item.TestItem;
-import com.epam.ta.reportportal.entity.log.Log;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostFormField;
 import com.epam.ta.reportportal.ws.model.externalsystem.PostTicketRQ;
 import com.google.common.collect.ImmutableMap;
@@ -35,8 +32,6 @@ import com.google.common.collect.Multimap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -72,22 +67,22 @@ public class InternalTicketAssembler implements Function<PostTicketRQ, InternalT
 		}
 
 		if (input.getIsIncludeLogs() || input.getIsIncludeScreenshots()) {
-			List<Log> logs = logRepositoryAdapter.findByTestItemRef(
-					input.getTestItemId(),
-					0 == input.getNumberOfLogs() ? Integer.MAX_VALUE : input.getNumberOfLogs(),
-					input.getIsIncludeScreenshots()
-			);
-			List<InternalTicket.LogEntry> entries = new ArrayList<>(logs.size());
-			for (Log log : logs) {
-				BinaryData attachment = null;
-				/* Get screenshots if required and they are present */
-				if (null != log.getAttachment() && input.getIsIncludeScreenshots()) {
-					attachment = dataStorageAdapter.fetchData(log.getAttachment());
-				}
-				/* Forwarding enabled logs boolean if screens only required */
-				entries.add(new InternalTicket.LogEntry(log, attachment, input.getIsIncludeLogs()));
-			}
-			ticket.setLogs(entries);
+//			List<Log> logs = logRepositoryAdapter.findByTestItemRef(
+//					input.getTestItemId(),
+//					0 == input.getNumberOfLogs() ? Integer.MAX_VALUE : input.getNumberOfLogs(),
+//					input.getIsIncludeScreenshots()
+//			);
+//			List<InternalTicket.LogEntry> entries = new ArrayList<>(logs.size());
+//			for (Log log : logs) {
+//				BinaryData attachment = null;
+//				/* Get screenshots if required and they are present */
+//				if (null != log.getAttachment() && input.getIsIncludeScreenshots()) {
+//					attachment = dataStorageAdapter.fetchData(log.getAttachment());
+//				}
+//				/* Forwarding enabled logs boolean if screens only required */
+//				entries.add(new InternalTicket.LogEntry(log, attachment, input.getIsIncludeLogs()));
+//			}
+//			ticket.setLogs(entries);
 		}
 
 		//TODO

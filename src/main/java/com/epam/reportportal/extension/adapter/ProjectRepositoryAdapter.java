@@ -1,6 +1,6 @@
 package com.epam.reportportal.extension.adapter;
 
-import com.epam.ta.reportportal.entity.project.Project;
+import com.epam.ta.reportportal.ws.model.project.ProjectResource;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -21,8 +21,12 @@ public class ProjectRepositoryAdapter {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-	public Project findByName(String projectName) {
-		return rabbitTemplate.convertSendAndReceiveAsType(PROJECTS_FIND_BY_NAME, projectName, new ParameterizedTypeReference<Project>() {
-		});
+	public ProjectResource findByName(String projectName) {
+		return rabbitTemplate.convertSendAndReceiveAsType(
+				PROJECTS_FIND_BY_NAME,
+				projectName,
+				new ParameterizedTypeReference<ProjectResource>() {
+				}
+		);
 	}
 }

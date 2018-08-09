@@ -1,6 +1,6 @@
 package com.epam.reportportal.extension.adapter;
 
-import com.epam.ta.reportportal.entity.integration.Integration;
+import com.epam.ta.reportportal.ws.model.integration.IntegrationResource;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -18,8 +18,8 @@ public class IntegrationRepositoryAdapter {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public Integration findOne(Long systemId) {
-        return rabbitTemplate.convertSendAndReceiveAsType(INTEGRATION_FIND_ONE, systemId, new ParameterizedTypeReference<Integration>() {
+    public IntegrationResource findOne(Long systemId) {
+        return rabbitTemplate.convertSendAndReceiveAsType(INTEGRATION_FIND_ONE, systemId, new ParameterizedTypeReference<IntegrationResource>() {
         });
     }
 }
